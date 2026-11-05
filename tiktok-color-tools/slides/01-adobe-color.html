@@ -1,0 +1,49 @@
+<!doctype html><html lang="ar"><head><meta charset="utf-8">
+<title>Adobe Color</title><style>
+@font-face { font-family: 'Cairo'; src: url('file:///home/user/portfolio/tiktok-color-tools/fonts/cairo-arabic.woff2') format('woff2'); font-weight: 200 1000; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
+body { font-family: 'Cairo', 'Inter', sans-serif; direction: rtl; position: relative; }
+.latin { font-family: 'Inter Display', 'Inter', sans-serif; direction: ltr; unicode-bidi: isolate; }
+
+body { background: #FBF1EC; color: #2A0F0A; }
+.blob { position:absolute; border-radius:50%; filter: blur(2px); }
+.b1 { width:760px; height:760px; left:-260px; top:1020px; background:#E5402B; opacity:0.16; }
+.b2 { width:420px; height:420px; right:-160px; top:-120px; background:#BFDA4B; opacity:0.35; }
+.top { position:absolute; top:150px; right:80px; left:80px; display:flex; justify-content:space-between; align-items:center; }
+.tag { font-size:30px; font-weight:700; padding:10px 28px; border-radius:999px; background:#2A0F0A; color:#FBF1EC; }
+.count { font-size:34px; font-weight:800; color:rgba(0,0,0,.62); }
+.head { position:absolute; top:250px; right:80px; left:80px; }
+.num { font-size:150px; line-height:1; font-weight:900; color:transparent; -webkit-text-stroke:4px #E5402B; }
+.name { font-size:118px; font-weight:900; line-height:1; letter-spacing:-3px; margin-top:-10px; text-align:right; }
+.url { font-size:32px; font-weight:600; color:#E5402B; margin-top:14px; text-align:right; }
+.line { font-size:54px; font-weight:900; line-height:1.35; margin-top:26px; }
+.desc { font-size:36px; font-weight:500; line-height:1.6; margin-top:12px; color:rgba(0,0,0,.62); max-width:900px; }
+.chips { display:flex; gap:14px; flex-wrap:wrap; margin-top:26px; }
+.chip { font-size:30px; font-weight:700; padding:8px 26px; border-radius:999px; border:3px solid #E5402B; color:#2A0F0A; background:#FFFFFF; }
+.phone { position:absolute; left:50%; top:850px; width:560px; height:1100px; margin-left:-280px;
+  background:#0E0E10; border-radius:72px; padding:16px; box-shadow: 0 40px 90px rgba(0,0,0,.35), 0 0 0 2px rgba(0,0,0,.08); transform: rotate(-3deg); }
+.screen { width:100%; height:100%; border-radius:58px; overflow:hidden; background:#fff; position:relative; }
+.screen img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.notch { position:absolute; top:14px; left:50%; width:150px; height:38px; margin-left:-75px; background:#0E0E10; border-radius:20px; z-index:2; }
+.sw { position:absolute; left:70px; top:930px; display:flex; flex-direction:column; gap:16px; }
+.sw i { width:74px; height:74px; border-radius:50%; display:block; box-shadow:0 8px 20px rgba(0,0,0,.18), inset 0 0 0 3px rgba(255,255,255,.55); }
+.tip { position:absolute; right:80px; top:1300px; width:480px; background:#E5402B; color:#fff; border-radius:34px; padding:26px 32px;
+  font-size:31px; font-weight:700; line-height:1.5; box-shadow:0 24px 50px rgba(0,0,0,.25); transform: rotate(2deg); }
+.tip b { display:block; font-size:26px; font-weight:900; opacity:.85; margin-bottom:4px; }
+</style></head><body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<div class="top"><span class="tag">أدوات الألوان للمصممين</span><span class="count latin">1/5</span></div>
+<div class="head">
+  <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+    <div><div class="name latin">Adobe Color</div><div class="url latin">color.adobe.com</div></div>
+    <div class="num latin">01</div>
+  </div>
+  <div class="line">لإنشاء لوحات لونية وفق قواعد تناغم الألوان.</div>
+  <div class="desc">اختاروا لونًا أساسيًا، طبّقوا قاعدة تناغم، وتطلع لكم لوحة متوازنة فورًا.</div>
+  <div class="chips"><span class="chip">عجلة الألوان</span><span class="chip">ألوان من صورة</span><span class="chip">فحص التباين</span></div>
+</div>
+<div class="sw"><i style="background:#BFDA4B"></i><i style="background:#8C8A2E"></i><i style="background:#3F8F2F"></i><i style="background:#8A2216"></i><i style="background:#6E2A7E"></i></div>
+<div class="phone"><div class="notch"></div><div class="screen"><img src="../screens/adobe-color.jpg"></div></div>
+<div class="tip"><b>نصيحة</b>ارفعوا صورة من تبويب Image وخذوا ألوانها مباشرة</div>
+</body></html>
