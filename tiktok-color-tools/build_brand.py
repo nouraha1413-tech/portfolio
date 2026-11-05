@@ -69,29 +69,20 @@ def tool_html(t, i, total):
 
 
 def cover_html():
-    rows = "".join(
-        f'<li><span class="n latin">0{k+1}</span><span class="q">؟ ؟ ؟</span>'
-        f'<span class="blur" style="background:linear-gradient(90deg,{",".join(t["swatches"][:4])})"></span></li>'
-        for k, t in enumerate(TOOLS))
     return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>Cover</title><style>{CSS}
-.kick {{ position:absolute; top:330px; right:80px; font-size:36px; font-weight:800; color:{SUN}; }}
-h1 {{ position:absolute; top:390px; right:80px; left:80px; font-size:132px; font-weight:900; line-height:1.15; }}
+.wrap {{ position:absolute; top:0; bottom:0; right:80px; left:80px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }}
+.kick {{ font-size:40px; font-weight:800; color:{SUN}; }}
+h1 {{ font-size:122px; font-weight:900; line-height:1.2; margin-top:10px; white-space:nowrap; }}
 h1 span {{ color:{SUN}; }}
-.card {{ position:absolute; top:930px; left:80px; right:80px; background:{WHITE}; color:{NAVY}; border-radius:56px; padding:44px 50px;
-  box-shadow:0 40px 90px rgba(5,12,70,.45); }}
-ul {{ list-style:none; display:flex; flex-direction:column; gap:20px; }}
-li {{ display:flex; align-items:center; gap:28px; }}
-.n {{ font-size:40px; font-weight:900; color:{BLUE}; width:60px; }}
-.q {{ font-size:44px; font-weight:900; color:rgba(10,27,126,.35); width:150px; }}
-.blur {{ flex:1; height:54px; border-radius:999px; filter:blur(7px); opacity:.85; }}
-.swipe {{ position:absolute; top:1640px; right:80px; font-size:40px; font-weight:900; background:{SUN}; color:{NAVY}; padding:14px 38px; border-radius:999px; }}
+.swipe {{ margin-top:60px; font-size:42px; font-weight:900; background:{SUN}; color:{NAVY}; padding:16px 42px; border-radius:999px; }}
 </style></head><body>
 {RINGS}
 <span class="tag">سلسلة أدوات المصمم</span>
+<div class="wrap">
 <div class="kick">للمصممين والمبتدئين</div>
 <h1>٥ مواقع <span>للألوان</span><br>لازم تعرفونها</h1>
-<div class="card"><ul>{rows}</ul></div>
 <div class="swipe">اسحبوا وشوفوها ←</div>
+</div>
 </body></html>"""
 
 
