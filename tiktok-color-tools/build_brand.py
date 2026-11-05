@@ -1,131 +1,128 @@
-"""Brand version of the TikTok slides, using the NOURAH logo blue.
+"""Brand version of the TikTok slides (NOURAH blue), with each site's logo.
 
 Usage: python3 build_brand.py && node render.js slides-brand
 """
-from pathlib import Path
 from build import TOOLS, BASE_CSS, ROOT
 
 OUT = ROOT / "slides-brand"
 OUT.mkdir(exist_ok=True)
 
-# Brand palette (blue sampled from the logo)
-BLUE = "#102ECF"    # primary
-NAVY = "#0A1B7E"    # depth / shadows
-TINT = "#EEF1FD"    # light surface
-SUN = "#FFC83D"     # highlight, complements the blue
-WHITE = "#FFFFFF"
+BLUE, NAVY, SUN, WHITE = "#102ECF", "#0A1B7E", "#FFC83D", "#FFFFFF"
 
-LOGO = "../brand/nourah-logo.jpg"
+# Logo per tool, cropped from the screenshots, shown on its native background.
+LOGOS = {
+    "01-adobe-color": ("adobe.png", "#F8F8F8", 110),
+    "02-coolors": ("coolors.png", "#FFFFFF", 130),
+    "03-huemint": ("huemint.png", "#72BCD5", 120),
+    "04-color-hunt": ("colorhunt.png", "#FFFFFF", 160),
+    "05-paletton": ("paletton-wheel.png", "#2A2A2A", 180),
+}
 
-BRAND_CSS = BASE_CSS + f"""
+CSS = BASE_CSS + f"""
 body {{ background:{BLUE}; color:{WHITE}; }}
-.dia {{ position:absolute; width:26px; height:26px; background:{WHITE}; transform:rotate(45deg); border-radius:4px; }}
 .ring {{ position:absolute; border-radius:50%; border:3px solid rgba(255,255,255,.14); }}
-.logo {{ position:absolute; top:130px; left:80px; width:230px; height:158px; border-radius:26px; overflow:hidden;
-  box-shadow:0 0 0 3px rgba(255,255,255,.18); }}
-.logo img {{ width:100%; height:100%; object-fit:cover; display:block; }}
-.tag {{ position:absolute; top:150px; right:80px; font-size:30px; font-weight:800; padding:10px 28px; border-radius:999px;
-  background:{WHITE}; color:{BLUE}; }}
-.count {{ position:absolute; top:236px; right:84px; font-size:30px; font-weight:800; color:rgba(255,255,255,.7); }}
+.tag {{ position:absolute; top:150px; right:80px; font-size:30px; font-weight:800; padding:10px 28px; border-radius:999px; background:{WHITE}; color:{BLUE}; }}
+.count {{ position:absolute; top:158px; left:84px; font-size:34px; font-weight:800; color:rgba(255,255,255,.75); }}
 """
 
-
-def deco():
-    return (f'<div class="ring" style="width:900px;height:900px;left:-420px;top:980px"></div>'
-            f'<div class="ring" style="width:600px;height:600px;right:-300px;top:-200px"></div>'
-            f'<div class="dia" style="left:350px;top:150px"></div>'
-            f'<div class="dia" style="left:395px;top:195px;width:16px;height:16px;opacity:.6"></div>')
+RINGS = ('<div class="ring" style="width:900px;height:900px;left:-420px;top:980px"></div>'
+         '<div class="ring" style="width:600px;height:600px;right:-300px;top:-200px"></div>')
 
 
 def tool_html(t, i, total):
+    logo, lbg, lh = LOGOS[t["slug"]]
     chips = "".join(f'<span class="chip">{c}</span>' for c in t["chips"])
-    sw = "".join(f'<i style="background:{c}"></i>' for c in t["swatches"])
-    return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>{t['name']}</title><style>{BRAND_CSS}
-.head {{ position:absolute; top:330px; right:80px; left:80px; }}
-.row {{ display:flex; justify-content:space-between; align-items:flex-end; }}
-.num {{ font-size:140px; line-height:1; font-weight:900; color:transparent; -webkit-text-stroke:4px {SUN}; }}
-.name {{ font-size:112px; font-weight:900; line-height:1; letter-spacing:-3px; text-align:right; }}
-.url {{ font-size:30px; font-weight:600; color:{SUN}; margin-top:12px; text-align:right; }}
-.line {{ font-size:52px; font-weight:900; line-height:1.35; margin-top:24px; }}
-.desc {{ font-size:35px; font-weight:500; line-height:1.6; margin-top:10px; color:rgba(255,255,255,.8); }}
+    # Text added next to logos that don't spell out the tool's full name.
+    extra = {"01-adobe-color": ("Color", "#2C2C2C"), "04-color-hunt": ("Color Hunt", "#141414"),
+             "05-paletton": ("Paletton", "#F4EEDF")}.get(t["slug"])
+    logo_inner = (f'<img src="../logos/{logo}" style="height:{lh}px">'
+                  + (f'<span class="lname latin" style="color:{extra[1]}">{extra[0]}</span>' if extra else ""))
+    return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>{t['name']}</title><style>{CSS}
+.logo {{ position:absolute; top:250px; left:80px; right:80px; height:260px; background:{lbg}; border-radius:48px;
+  display:flex; align-items:center; justify-content:center; gap:28px; direction:ltr; box-shadow:0 30px 70px rgba(5,12,70,.4); }}
+.logo img {{ display:block; max-width:760px; object-fit:contain; }}
+.lname {{ font-size:100px; font-weight:900; color:#F4EEDF; letter-spacing:-2px; }}
+.num {{ position:absolute; top:220px; right:56px; width:110px; height:110px; border-radius:50%; background:{SUN}; color:{NAVY};
+  font-size:50px; font-weight:900; display:flex; align-items:center; justify-content:center; box-shadow:0 12px 30px rgba(5,12,70,.35); }}
+.head {{ position:absolute; top:560px; right:80px; left:80px; }}
+.url {{ font-size:34px; font-weight:800; color:{SUN}; text-align:right; }}
+.line {{ font-size:54px; font-weight:900; line-height:1.35; margin-top:8px; }}
+.desc {{ font-size:36px; font-weight:500; line-height:1.6; margin-top:10px; color:rgba(255,255,255,.82); }}
 .chips {{ display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }}
-.chip {{ font-size:29px; font-weight:800; padding:8px 26px; border-radius:999px; background:{WHITE}; color:{BLUE}; }}
-.phone {{ position:absolute; left:50%; top:930px; width:540px; height:1060px; margin-left:-270px; background:#0B0B12;
-  border-radius:70px; padding:16px; box-shadow:0 40px 90px rgba(5,12,70,.55); transform:rotate(-3deg); }}
-.screen {{ width:100%; height:100%; border-radius:56px; overflow:hidden; background:#fff; }}
+.chip {{ font-size:30px; font-weight:800; padding:8px 26px; border-radius:999px; background:{WHITE}; color:{BLUE}; }}
+.phone {{ position:absolute; left:50%; top:1060px; width:520px; height:1020px; margin-left:-260px; background:#0B0B12;
+  border-radius:68px; padding:16px; box-shadow:0 40px 90px rgba(5,12,70,.55); transform:rotate(-3deg); }}
+.screen {{ width:100%; height:100%; border-radius:54px; overflow:hidden; background:#fff; }}
 .screen img {{ width:100%; height:100%; object-fit:cover; object-position:top; display:block; }}
 .notch {{ position:absolute; top:14px; left:50%; width:150px; height:38px; margin-left:-75px; background:#0B0B12; border-radius:20px; z-index:2; }}
-.sw {{ position:absolute; left:70px; top:1010px; display:flex; flex-direction:column; gap:16px; }}
-.sw i {{ width:72px; height:72px; border-radius:50%; display:block; box-shadow:0 8px 20px rgba(0,0,0,.25), 0 0 0 4px {WHITE}; }}
-.tip {{ position:absolute; right:80px; top:1360px; width:480px; background:{SUN}; color:{NAVY}; border-radius:34px; padding:26px 32px;
+.tip {{ position:absolute; right:70px; top:1420px; width:460px; background:{SUN}; color:{NAVY}; border-radius:34px; padding:24px 30px;
   font-size:31px; font-weight:800; line-height:1.5; box-shadow:0 24px 50px rgba(5,12,70,.4); transform:rotate(2deg); }}
 .tip b {{ display:block; font-size:26px; font-weight:900; opacity:.75; margin-bottom:4px; }}
 </style></head><body>
-{deco()}
-<div class="logo"><img src="{LOGO}"></div>
+{RINGS}
 <span class="tag">أدوات الألوان للمصممين</span>
 <span class="count latin">{i}/{total}</span>
+<div class="logo">{logo_inner}</div>
+<div class="num latin">0{i}</div>
 <div class="head">
-  <div class="row"><div><div class="name latin">{t['name']}</div><div class="url latin">{t['url']}</div></div>
-  <div class="num latin">0{i}</div></div>
+  <div class="url latin">{t['url']}</div>
   <div class="line">{t['line']}</div>
   <div class="desc">{t['desc']}</div>
   <div class="chips">{chips}</div>
 </div>
-<div class="sw">{sw}</div>
 <div class="phone"><div class="notch"></div><div class="screen"><img src="../screens/{t['img']}"></div></div>
 <div class="tip"><b>نصيحة</b>{t['tip']}</div>
 </body></html>"""
 
 
 def cover_html():
-    names = "".join(
-        f'<li><span class="n latin">0{k+1}</span><span class="latin">{t["name"]}</span>'
-        f'<em>{"".join(f"<i style=background:{c}></i>" for c in t["swatches"][:3])}</em></li>'
+    rows = "".join(
+        f'<li><span class="n latin">0{k+1}</span><span class="q">؟ ؟ ؟</span>'
+        f'<span class="blur" style="background:linear-gradient(90deg,{",".join(t["swatches"][:4])})"></span></li>'
         for k, t in enumerate(TOOLS))
-    return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>Cover</title><style>{BRAND_CSS}
-.kick {{ position:absolute; top:380px; right:80px; font-size:34px; font-weight:800; color:{SUN}; }}
-h1 {{ position:absolute; top:440px; right:80px; left:80px; font-size:128px; font-weight:900; line-height:1.15; }}
+    return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>Cover</title><style>{CSS}
+.kick {{ position:absolute; top:330px; right:80px; font-size:36px; font-weight:800; color:{SUN}; }}
+h1 {{ position:absolute; top:390px; right:80px; left:80px; font-size:132px; font-weight:900; line-height:1.15; }}
 h1 span {{ color:{SUN}; }}
-.card {{ position:absolute; top:960px; left:80px; right:80px; background:{WHITE}; color:{NAVY}; border-radius:56px; padding:46px 56px;
+.card {{ position:absolute; top:930px; left:80px; right:80px; background:{WHITE}; color:{NAVY}; border-radius:56px; padding:44px 50px;
   box-shadow:0 40px 90px rgba(5,12,70,.45); }}
-ul {{ list-style:none; display:flex; flex-direction:column; gap:14px; }}
-li {{ display:flex; align-items:center; gap:24px; font-size:52px; font-weight:800; direction:ltr; }}
-li .n {{ font-size:32px; color:{BLUE}; font-weight:800; width:52px; }}
-li em {{ margin-left:auto; display:flex; }}
-li em i {{ width:46px; height:46px; border-radius:50%; display:block; margin-left:-12px; box-shadow:0 0 0 4px {WHITE}; }}
-.save {{ position:absolute; top:1640px; right:80px; font-size:38px; font-weight:800; background:{SUN}; color:{NAVY}; padding:14px 34px; border-radius:999px; }}
+ul {{ list-style:none; display:flex; flex-direction:column; gap:20px; }}
+li {{ display:flex; align-items:center; gap:28px; }}
+.n {{ font-size:40px; font-weight:900; color:{BLUE}; width:60px; }}
+.q {{ font-size:44px; font-weight:900; color:rgba(10,27,126,.35); width:150px; }}
+.blur {{ flex:1; height:54px; border-radius:999px; filter:blur(7px); opacity:.85; }}
+.swipe {{ position:absolute; top:1640px; right:80px; font-size:40px; font-weight:900; background:{SUN}; color:{NAVY}; padding:14px 38px; border-radius:999px; }}
 </style></head><body>
-{deco()}
-<div class="logo"><img src="{LOGO}"></div>
+{RINGS}
 <span class="tag">سلسلة أدوات المصمم</span>
 <div class="kick">للمصممين والمبتدئين</div>
 <h1>٥ مواقع <span>للألوان</span><br>لازم تعرفونها</h1>
-<div class="card"><ul>{names}</ul></div>
-<div class="save">احفظوا المنشور قبل لا يضيع</div>
+<div class="card"><ul>{rows}</ul></div>
+<div class="swipe">اسحبوا وشوفوها ←</div>
 </body></html>"""
 
 
 def outro_html():
-    rows = "".join(
-        f'<div class="r"><span class="d" style="background:{t["swatches"][0]}"></span>'
-        f'<span class="nm latin">{t["name"]}</span><span class="w">{t["line"].rstrip(".")}</span></div>'
-        for t in TOOLS)
-    return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>Outro</title><style>{BRAND_CSS}
-h2 {{ position:absolute; top:360px; right:80px; left:80px; font-size:96px; font-weight:900; line-height:1.2; }}
+    rows = ""
+    for t in TOOLS:
+        logo, lbg, _ = LOGOS[t["slug"]]
+        rows += (f'<div class="r"><span class="lg" style="background:{lbg}"><img src="../logos/{logo}"></span>'
+                 f'<span class="tx"><span class="nm latin">{t["name"]}</span><span class="w">{t["line"].rstrip(".")}</span></span></div>')
+    return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>Outro</title><style>{CSS}
+h2 {{ position:absolute; top:290px; right:80px; left:80px; font-size:96px; font-weight:900; line-height:1.2; }}
 h2 span {{ color:{SUN}; }}
-.sub {{ position:absolute; top:600px; right:80px; font-size:40px; font-weight:700; color:rgba(255,255,255,.8); }}
-.list {{ position:absolute; top:700px; right:80px; left:80px; display:flex; flex-direction:column; gap:16px; }}
-.r {{ background:{WHITE}; color:{NAVY}; border-radius:34px; padding:18px 34px; display:grid; grid-template-columns:52px 1fr;
-  column-gap:24px; align-items:center; }}
-.d {{ width:52px; height:52px; border-radius:50%; grid-row:1 / span 2; box-shadow:inset 0 0 0 3px rgba(0,0,0,.08); }}
-.nm {{ font-size:46px; font-weight:800; text-align:right; }}
-.w {{ font-size:30px; font-weight:600; color:rgba(10,27,126,.7); }}
-.cta {{ position:absolute; top:1610px; right:80px; left:80px; text-align:center; font-size:50px; font-weight:900; background:{SUN};
+.sub {{ position:absolute; top:530px; right:80px; font-size:40px; font-weight:700; color:rgba(255,255,255,.8); }}
+.list {{ position:absolute; top:630px; right:80px; left:80px; display:flex; flex-direction:column; gap:16px; }}
+.r {{ background:{WHITE}; color:{NAVY}; border-radius:34px; padding:16px 20px 16px 30px; display:flex; align-items:center; gap:26px; }}
+.lg {{ width:150px; height:96px; border-radius:22px; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:inset 0 0 0 2px rgba(0,0,0,.06); }}
+.lg img {{ max-width:124px; max-height:72px; display:block; }}
+.tx {{ display:flex; flex-direction:column; }}
+.nm {{ font-size:44px; font-weight:800; text-align:right; line-height:1.2; }}
+.w {{ font-size:29px; font-weight:600; color:rgba(10,27,126,.7); }}
+.cta {{ position:absolute; top:1580px; right:80px; left:80px; text-align:center; font-size:50px; font-weight:900; background:{SUN};
   color:{NAVY}; border-radius:999px; padding:24px; }}
 </style></head><body>
-{deco()}
-<div class="logo"><img src="{LOGO}"></div>
+{RINGS}
 <span class="tag">سلسلة أدوات المصمم</span>
 <h2>أي موقع بتجربونه <span>أول؟</span></h2>
 <div class="sub">قولوا لي في التعليقات 👇</div>

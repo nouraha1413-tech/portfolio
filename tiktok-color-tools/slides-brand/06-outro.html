@@ -6,32 +6,27 @@ body { font-family: 'Cairo', 'Inter', sans-serif; direction: rtl; position: rela
 .latin { font-family: 'Inter Display', 'Inter', sans-serif; direction: ltr; unicode-bidi: isolate; }
 
 body { background:#102ECF; color:#FFFFFF; }
-.dia { position:absolute; width:26px; height:26px; background:#FFFFFF; transform:rotate(45deg); border-radius:4px; }
 .ring { position:absolute; border-radius:50%; border:3px solid rgba(255,255,255,.14); }
-.logo { position:absolute; top:130px; left:80px; width:230px; height:158px; border-radius:26px; overflow:hidden;
-  box-shadow:0 0 0 3px rgba(255,255,255,.18); }
-.logo img { width:100%; height:100%; object-fit:cover; display:block; }
-.tag { position:absolute; top:150px; right:80px; font-size:30px; font-weight:800; padding:10px 28px; border-radius:999px;
-  background:#FFFFFF; color:#102ECF; }
-.count { position:absolute; top:236px; right:84px; font-size:30px; font-weight:800; color:rgba(255,255,255,.7); }
+.tag { position:absolute; top:150px; right:80px; font-size:30px; font-weight:800; padding:10px 28px; border-radius:999px; background:#FFFFFF; color:#102ECF; }
+.count { position:absolute; top:158px; left:84px; font-size:34px; font-weight:800; color:rgba(255,255,255,.75); }
 
-h2 { position:absolute; top:360px; right:80px; left:80px; font-size:96px; font-weight:900; line-height:1.2; }
+h2 { position:absolute; top:290px; right:80px; left:80px; font-size:96px; font-weight:900; line-height:1.2; }
 h2 span { color:#FFC83D; }
-.sub { position:absolute; top:600px; right:80px; font-size:40px; font-weight:700; color:rgba(255,255,255,.8); }
-.list { position:absolute; top:700px; right:80px; left:80px; display:flex; flex-direction:column; gap:16px; }
-.r { background:#FFFFFF; color:#0A1B7E; border-radius:34px; padding:18px 34px; display:grid; grid-template-columns:52px 1fr;
-  column-gap:24px; align-items:center; }
-.d { width:52px; height:52px; border-radius:50%; grid-row:1 / span 2; box-shadow:inset 0 0 0 3px rgba(0,0,0,.08); }
-.nm { font-size:46px; font-weight:800; text-align:right; }
-.w { font-size:30px; font-weight:600; color:rgba(10,27,126,.7); }
-.cta { position:absolute; top:1610px; right:80px; left:80px; text-align:center; font-size:50px; font-weight:900; background:#FFC83D;
+.sub { position:absolute; top:530px; right:80px; font-size:40px; font-weight:700; color:rgba(255,255,255,.8); }
+.list { position:absolute; top:630px; right:80px; left:80px; display:flex; flex-direction:column; gap:16px; }
+.r { background:#FFFFFF; color:#0A1B7E; border-radius:34px; padding:16px 20px 16px 30px; display:flex; align-items:center; gap:26px; }
+.lg { width:150px; height:96px; border-radius:22px; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:inset 0 0 0 2px rgba(0,0,0,.06); }
+.lg img { max-width:124px; max-height:72px; display:block; }
+.tx { display:flex; flex-direction:column; }
+.nm { font-size:44px; font-weight:800; text-align:right; line-height:1.2; }
+.w { font-size:29px; font-weight:600; color:rgba(10,27,126,.7); }
+.cta { position:absolute; top:1580px; right:80px; left:80px; text-align:center; font-size:50px; font-weight:900; background:#FFC83D;
   color:#0A1B7E; border-radius:999px; padding:24px; }
 </style></head><body>
-<div class="ring" style="width:900px;height:900px;left:-420px;top:980px"></div><div class="ring" style="width:600px;height:600px;right:-300px;top:-200px"></div><div class="dia" style="left:350px;top:150px"></div><div class="dia" style="left:395px;top:195px;width:16px;height:16px;opacity:.6"></div>
-<div class="logo"><img src="../brand/nourah-logo.jpg"></div>
+<div class="ring" style="width:900px;height:900px;left:-420px;top:980px"></div><div class="ring" style="width:600px;height:600px;right:-300px;top:-200px"></div>
 <span class="tag">سلسلة أدوات المصمم</span>
 <h2>أي موقع بتجربونه <span>أول؟</span></h2>
 <div class="sub">قولوا لي في التعليقات 👇</div>
-<div class="list"><div class="r"><span class="d" style="background:#BFDA4B"></span><span class="nm latin">Adobe Color</span><span class="w">لإنشاء لوحات لونية وفق قواعد تناغم الألوان</span></div><div class="r"><span class="d" style="background:#0B24C9"></span><span class="nm latin">Coolors</span><span class="w">لتوليد مجموعات لونية متناسقة بسرعة</span></div><div class="r"><span class="d" style="background:#70BCD5"></span><span class="nm latin">Huemint</span><span class="w">لاقتراح الألوان ومعاينتها على التصاميم</span></div><div class="r"><span class="d" style="background:#EAC054"></span><span class="nm latin">Color Hunt</span><span class="w">لاستكشاف مجموعات لونية جاهزة</span></div><div class="r"><span class="d" style="background:#AA3939"></span><span class="nm latin">Paletton</span><span class="w">لتنسيق الألوان باستخدام عجلة الألوان</span></div></div>
+<div class="list"><div class="r"><span class="lg" style="background:#F8F8F8"><img src="../logos/adobe.png"></span><span class="tx"><span class="nm latin">Adobe Color</span><span class="w">لإنشاء لوحات لونية وفق قواعد تناغم الألوان</span></span></div><div class="r"><span class="lg" style="background:#FFFFFF"><img src="../logos/coolors.png"></span><span class="tx"><span class="nm latin">Coolors</span><span class="w">لتوليد مجموعات لونية متناسقة بسرعة</span></span></div><div class="r"><span class="lg" style="background:#72BCD5"><img src="../logos/huemint.png"></span><span class="tx"><span class="nm latin">Huemint</span><span class="w">لاقتراح الألوان ومعاينتها على التصاميم</span></span></div><div class="r"><span class="lg" style="background:#FFFFFF"><img src="../logos/colorhunt.png"></span><span class="tx"><span class="nm latin">Color Hunt</span><span class="w">لاستكشاف مجموعات لونية جاهزة</span></span></div><div class="r"><span class="lg" style="background:#2A2A2A"><img src="../logos/paletton-wheel.png"></span><span class="tx"><span class="nm latin">Paletton</span><span class="w">لتنسيق الألوان باستخدام عجلة الألوان</span></span></div></div>
 <div class="cta">تابعوني لأدوات تصميم أكثر</div>
 </body></html>
