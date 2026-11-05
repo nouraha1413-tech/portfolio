@@ -74,7 +74,6 @@ h1 span {{ color:{SUN}; }}
 .swipe {{ position:absolute; top:1650px; right:80px; font-size:42px; font-weight:900; background:{SUN}; color:{NAVY}; padding:16px 42px; border-radius:999px; }}
 </style></head><body>
 {RINGS}
-<span class="tag">سلسلة أدوات المصمم</span>
 <div class="wrap">
 <h1><span class="big latin">5</span> مواقع<br>تساعدكم تنسّقون<br><span>ألوان تصاميمكم</span></h1>
 </div>
