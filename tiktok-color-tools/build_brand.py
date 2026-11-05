@@ -71,18 +71,16 @@ def tool_html(t, i, total):
 def cover_html():
     return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>Cover</title><style>{CSS}
 .wrap {{ position:absolute; top:0; bottom:0; right:80px; left:80px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }}
-.kick {{ font-size:40px; font-weight:800; color:{SUN}; }}
 h1 {{ font-size:122px; font-weight:900; line-height:1.2; margin-top:10px; white-space:nowrap; }}
 h1 span {{ color:{SUN}; }}
-.swipe {{ margin-top:60px; font-size:42px; font-weight:900; background:{SUN}; color:{NAVY}; padding:16px 42px; border-radius:999px; }}
+.swipe {{ position:absolute; top:1650px; right:80px; font-size:42px; font-weight:900; background:{SUN}; color:{NAVY}; padding:16px 42px; border-radius:999px; }}
 </style></head><body>
 {RINGS}
 <span class="tag">سلسلة أدوات المصمم</span>
 <div class="wrap">
-<div class="kick">للمصممين والمبتدئين</div>
 <h1>٥ مواقع <span>للألوان</span><br>لازم تعرفونها</h1>
-<div class="swipe">اسحبوا وشوفوها ←</div>
 </div>
+<div class="swipe">اسحبوا وشوفوها ←</div>
 </body></html>"""
 
 
