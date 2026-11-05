@@ -78,7 +78,7 @@ h1 span {{ color:{SUN}; }}
 {RINGS}
 <span class="tag">سلسلة أدوات المصمم</span>
 <div class="wrap">
-<h1>٥ مواقع <span>للألوان</span><br>لازم تعرفونها</h1>
+<h1>5 مواقع <span>للألوان</span><br>لازم تعرفونها</h1>
 </div>
 <div class="swipe">اسحبوا وشوفوها ←</div>
 </body></html>"""
