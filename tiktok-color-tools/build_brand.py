@@ -103,8 +103,8 @@ h2 span {{ color:{SUN}; }}
 .tx {{ display:flex; flex-direction:column; }}
 .nm {{ font-size:44px; font-weight:800; text-align:right; line-height:1.2; }}
 .w {{ font-size:29px; font-weight:600; color:rgba(10,27,126,.7); }}
-.cta {{ position:absolute; top:1580px; right:80px; left:80px; text-align:center; font-size:50px; font-weight:900; background:{SUN};
-  color:{NAVY}; border-radius:999px; padding:24px; }}
+.cta {{ position:absolute; top:1650px; right:80px; left:80px; text-align:center; font-size:66px; font-weight:900; background:{SUN};
+  color:{NAVY}; border-radius:999px; padding:38px 24px; }}
 </style></head><body>
 {RINGS}
 <span class="tag">سلسلة أدوات المصمم</span>
