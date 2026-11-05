@@ -33,7 +33,7 @@ def tool_html(t, i, total):
     _, sbg, _ = LOGOS[t["slug"]]  # screenshot's own background, used for the phone status bar
     chips = "".join(f'<span class="chip">{c}</span>' for c in t["chips"])
     return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>{t['name']}</title><style>{CSS}
-.head {{ position:absolute; top:250px; right:80px; left:80px; }}
+.head {{ position:absolute; top:230px; right:80px; left:80px; }}
 .row {{ display:flex; justify-content:space-between; align-items:flex-end; }}
 .num {{ font-size:140px; line-height:1; font-weight:900; color:transparent; -webkit-text-stroke:4px {SUN}; }}
 .name {{ font-size:112px; font-weight:900; line-height:1; letter-spacing:-3px; text-align:right; }}
@@ -42,25 +42,22 @@ def tool_html(t, i, total):
 .desc {{ font-size:35px; font-weight:500; line-height:1.6; margin-top:10px; color:rgba(255,255,255,.82); }}
 .chips {{ display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }}
 .chip {{ font-size:29px; font-weight:800; padding:8px 26px; border-radius:999px; background:{WHITE}; color:{BLUE}; }}
-.phone {{ position:absolute; left:50%; top:880px; width:560px; height:1100px; margin-left:-280px; background:#0B0B12;
+.phone {{ position:absolute; left:50%; top:660px; width:580px; height:1160px; margin-left:-290px; background:#0B0B12;
   border-radius:70px; padding:16px; box-shadow:0 40px 90px rgba(5,12,70,.55); transform:rotate(-3deg); }}
 .screen {{ width:100%; height:100%; border-radius:56px; overflow:hidden; background:{sbg}; display:flex; flex-direction:column; }}
 .status {{ height:72px; flex:none; position:relative; background:{sbg}; }}
 .notch {{ position:absolute; top:14px; left:50%; width:150px; height:38px; margin-left:-75px; background:#0B0B12; border-radius:20px; }}
 .screen img {{ width:100%; flex:1; min-height:0; object-fit:cover; object-position:top; display:block; }}
-.tip {{ position:absolute; right:70px; top:1440px; width:460px; background:{SUN}; color:{NAVY}; border-radius:34px; padding:24px 30px;
+.tip {{ position:absolute; right:70px; top:1300px; width:460px; background:{SUN}; color:{NAVY}; border-radius:34px; padding:24px 30px;
   font-size:31px; font-weight:800; line-height:1.5; box-shadow:0 24px 50px rgba(5,12,70,.4); transform:rotate(2deg); }}
 .tip b {{ display:block; font-size:26px; font-weight:900; opacity:.75; margin-bottom:4px; }}
 </style></head><body>
 {RINGS}
-<span class="tag">أدوات الألوان للمصممين</span>
 <span class="count latin">{i}/{total}</span>
 <div class="head">
   <div class="row"><div><div class="name latin">{t['name']}</div><div class="url latin">{t['url']}</div></div>
   <div class="num latin">0{i}</div></div>
   <div class="line">{t['line']}</div>
-  <div class="desc">{t['desc']}</div>
-  <div class="chips">{chips}</div>
 </div>
 <div class="phone"><div class="screen"><div class="status"><div class="notch"></div></div>
 <img src="../screens/{t['img']}"></div></div>
@@ -105,7 +102,6 @@ h2 span {{ color:{SUN}; }}
   color:{NAVY}; border-radius:999px; padding:38px 24px; }}
 </style></head><body>
 {RINGS}
-<span class="tag">سلسلة أدوات المصمم</span>
 <h2>أي موقع بتجربونه <span>أول؟</span></h2>
 <div class="sub">قولوا لي في التعليقات 👇</div>
 <div class="list">{rows}</div>
