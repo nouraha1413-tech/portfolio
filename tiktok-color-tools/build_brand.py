@@ -30,47 +30,40 @@ RINGS = ('<div class="ring" style="width:900px;height:900px;left:-420px;top:980p
 
 
 def tool_html(t, i, total):
-    logo, lbg, lh = LOGOS[t["slug"]]
+    _, sbg, _ = LOGOS[t["slug"]]  # screenshot's own background, used for the phone status bar
     chips = "".join(f'<span class="chip">{c}</span>' for c in t["chips"])
-    # Text added next to logos that don't spell out the tool's full name.
-    extra = {"01-adobe-color": ("Color", "#2C2C2C"), "04-color-hunt": ("Color Hunt", "#141414"),
-             "05-paletton": ("Paletton", "#F4EEDF")}.get(t["slug"])
-    logo_inner = (f'<img src="../logos/{logo}" style="height:{lh}px">'
-                  + (f'<span class="lname latin" style="color:{extra[1]}">{extra[0]}</span>' if extra else ""))
     return f"""<!doctype html><html lang="ar"><head><meta charset="utf-8"><title>{t['name']}</title><style>{CSS}
-.logo {{ position:absolute; top:250px; left:80px; right:80px; height:260px; background:{lbg}; border-radius:48px;
-  display:flex; align-items:center; justify-content:center; gap:28px; direction:ltr; box-shadow:0 30px 70px rgba(5,12,70,.4); }}
-.logo img {{ display:block; max-width:760px; object-fit:contain; }}
-.lname {{ font-size:100px; font-weight:900; color:#F4EEDF; letter-spacing:-2px; }}
-.num {{ position:absolute; top:220px; right:56px; width:110px; height:110px; border-radius:50%; background:{SUN}; color:{NAVY};
-  font-size:50px; font-weight:900; display:flex; align-items:center; justify-content:center; box-shadow:0 12px 30px rgba(5,12,70,.35); }}
-.head {{ position:absolute; top:560px; right:80px; left:80px; }}
-.url {{ font-size:34px; font-weight:800; color:{SUN}; text-align:right; }}
-.line {{ font-size:54px; font-weight:900; line-height:1.35; margin-top:8px; }}
-.desc {{ font-size:36px; font-weight:500; line-height:1.6; margin-top:10px; color:rgba(255,255,255,.82); }}
+.head {{ position:absolute; top:250px; right:80px; left:80px; }}
+.row {{ display:flex; justify-content:space-between; align-items:flex-end; }}
+.num {{ font-size:140px; line-height:1; font-weight:900; color:transparent; -webkit-text-stroke:4px {SUN}; }}
+.name {{ font-size:112px; font-weight:900; line-height:1; letter-spacing:-3px; text-align:right; }}
+.url {{ font-size:30px; font-weight:600; color:{SUN}; margin-top:12px; text-align:right; }}
+.line {{ font-size:52px; font-weight:900; line-height:1.35; margin-top:24px; }}
+.desc {{ font-size:35px; font-weight:500; line-height:1.6; margin-top:10px; color:rgba(255,255,255,.82); }}
 .chips {{ display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }}
-.chip {{ font-size:30px; font-weight:800; padding:8px 26px; border-radius:999px; background:{WHITE}; color:{BLUE}; }}
-.phone {{ position:absolute; left:50%; top:1060px; width:520px; height:1020px; margin-left:-260px; background:#0B0B12;
-  border-radius:68px; padding:16px; box-shadow:0 40px 90px rgba(5,12,70,.55); transform:rotate(-3deg); }}
-.screen {{ width:100%; height:100%; border-radius:54px; overflow:hidden; background:#fff; }}
-.screen img {{ width:100%; height:100%; object-fit:cover; object-position:top; display:block; }}
-.notch {{ position:absolute; top:14px; left:50%; width:150px; height:38px; margin-left:-75px; background:#0B0B12; border-radius:20px; z-index:2; }}
-.tip {{ position:absolute; right:70px; top:1420px; width:460px; background:{SUN}; color:{NAVY}; border-radius:34px; padding:24px 30px;
+.chip {{ font-size:29px; font-weight:800; padding:8px 26px; border-radius:999px; background:{WHITE}; color:{BLUE}; }}
+.phone {{ position:absolute; left:50%; top:880px; width:560px; height:1100px; margin-left:-280px; background:#0B0B12;
+  border-radius:70px; padding:16px; box-shadow:0 40px 90px rgba(5,12,70,.55); transform:rotate(-3deg); }}
+.screen {{ width:100%; height:100%; border-radius:56px; overflow:hidden; background:{sbg}; display:flex; flex-direction:column; }}
+.status {{ height:72px; flex:none; position:relative; background:{sbg}; }}
+.notch {{ position:absolute; top:14px; left:50%; width:150px; height:38px; margin-left:-75px; background:#0B0B12; border-radius:20px; }}
+.screen img {{ width:100%; flex:1; min-height:0; object-fit:cover; object-position:top; display:block; }}
+.tip {{ position:absolute; right:70px; top:1440px; width:460px; background:{SUN}; color:{NAVY}; border-radius:34px; padding:24px 30px;
   font-size:31px; font-weight:800; line-height:1.5; box-shadow:0 24px 50px rgba(5,12,70,.4); transform:rotate(2deg); }}
 .tip b {{ display:block; font-size:26px; font-weight:900; opacity:.75; margin-bottom:4px; }}
 </style></head><body>
 {RINGS}
 <span class="tag">أدوات الألوان للمصممين</span>
 <span class="count latin">{i}/{total}</span>
-<div class="logo">{logo_inner}</div>
-<div class="num latin">0{i}</div>
 <div class="head">
-  <div class="url latin">{t['url']}</div>
+  <div class="row"><div><div class="name latin">{t['name']}</div><div class="url latin">{t['url']}</div></div>
+  <div class="num latin">0{i}</div></div>
   <div class="line">{t['line']}</div>
   <div class="desc">{t['desc']}</div>
   <div class="chips">{chips}</div>
 </div>
-<div class="phone"><div class="notch"></div><div class="screen"><img src="../screens/{t['img']}"></div></div>
+<div class="phone"><div class="screen"><div class="status"><div class="notch"></div></div>
+<img src="../screens/{t['img']}"></div></div>
 <div class="tip"><b>نصيحة</b>{t['tip']}</div>
 </body></html>"""
 
