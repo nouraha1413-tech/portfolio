@@ -112,8 +112,7 @@ def cover_b():   # كولاج شاشات المواقع — مموّه عشان 
 .t .sub{font-size:40px;font-weight:700;opacity:.95}
 .swipe{position:absolute;bottom:470px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;background:#fff;color:#1538dc;font-size:34px;font-weight:800;padding:18px 40px;border-radius:50px;box-shadow:0 20px 50px rgba(0,0,40,.35);white-space:nowrap}
 """, f"""<div class="clip">{cards}<div class="tint"></div><div class="focus"></div></div>
-<div class="t"><div class="k">مصادر المصمم</div><h1>{TITLE}</h1><div class="line"></div><div class="sub">٦ مواقع لازم تحفظها</div></div>
-<div class="swipe">اسحب وشوفها ←</div>""")
+<div class="t"><h1>{TITLE}</h1><div class="sub" style="margin-top:40px">٦ مواقع لازم تحفظها</div></div>""")
 
 def cover_c():   # سطور بخطوط مختلفة
     rows = "".join(f'<div class="row" style="font-family:\'{f}\';opacity:{.10 if i%2 else .2}">الخطوط العربية الخطوط العربية</div>' for i,f in enumerate(DECO_FONTS+DECO_FONTS[:3]))
