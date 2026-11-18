@@ -5,21 +5,30 @@ HERE = pathlib.Path(__file__).parent
 BLUE, DARK = "#1538dc", "#0e289f"
 
 SITES = [
- dict(n="01", name="Google Fonts", ar="جوجل فونتس", url="fonts.google.com", tag="مجاني",
+ dict(n="01", name="Google Fonts", url="fonts.google.com", tag="مجاني",
       desc="مكتبة ضخمة من خطوط جوجل، فيها فلتر للخطوط العربية تقدر تجربها وتحملها وتستخدمها تجارياً.",
       fonts=["Cairo","Tajawal","Almarai","Amiri","Reem Kufi","El Messiri"]),
- dict(n="02", name="Arabic Fonts", ar="عربيك فونتس", url="arabicfonts.net", tag="مجاني",
+ dict(n="02", name="Arabic Fonts", url="arabicfonts.net", tag="مجاني",
       desc="موقع متخصص بالخطوط العربية، مقسّم حسب النوع: كوفي، نسخ، ديواني ورقعة.",
       fonts=["Lalezar","Changa","Aref Ruqaa","Mada","Harmattan","Marhey"]),
- dict(n="03", name="Alfont", ar="الفونت", url="alfont.com", tag="مجاني",
+ dict(n="03", name="Alfont", url="alfont.com", tag="مجاني",
       desc="آلاف الخطوط العربية مع معاينة مباشرة للنص اللي تكتبه قبل التحميل.",
       fonts=["Rakkas","Lemonada","Katibeh","Mirza","Jomhuria","Vibes"]),
- dict(n="04", name="29LT", ar="٢٩ إل تي", url="29lt.com", tag="احترافي",
+ dict(n="04", name="Fonts Arabic", url="fontsarabic.com", tag="مجاني",
+      desc="تشكيلة كبيرة من الخطوط العربية المجانية مرتبة بتصنيفات تسهّل عليك البحث.",
+      fonts=["Kufam","Blaka","Qahiri","Messiri","Ruwudu","Reem Kufi Ink"]),
+ dict(n="05", name="29LT", url="29lt.com", tag="احترافي",
       desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية للهويات والعلامات التجارية.",
       fonts=["Readex Pro","Alexandria","Noto Kufi Arabic","Rubik","IBM Plex Sans Arabic","Baloo Bhaijaan 2"]),
- dict(n="05", name="Adobe Fonts", ar="أدوبي فونتس", url="fonts.adobe.com", tag="مع الاشتراك",
+ dict(n="06", name="TPTQ Arabic", url="tptq-arabic.com", tag="احترافي",
+      desc="مسبك متخصص بالخط العربي، يقدّم خطوط عصرية متوافقة مع خطوط لاتينية.",
+      fonts=["Noto Sans Arabic","Vazirmatn","Zain","Playpen Sans Arabic","Handjet","Beiruti"]),
+ dict(n="07", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
       desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.",
       fonts=["Noto Naskh Arabic","Scheherazade New","Amiri","Lateef","Gulzar","Kufam"]),
+ dict(n="08", name="MyFonts", url="myfonts.com", tag="مدفوع",
+      desc="سوق خطوط عالمي فيه قسم كبير للخطوط العربية من مصممين ومسابك مختلفة.",
+      fonts=["Almarai","Cairo Play","Badeen Display","Tajawal","Changa","El Messiri"]),
 ]
 SAMPLE = "تصميم مميز"
 
@@ -55,7 +64,9 @@ body{{width:1080px;height:1350px;overflow:hidden;font-family:'Tajawal',sans-seri
 h1{{font-family:'Readex Pro';font-weight:700;font-size:92px;line-height:1.05;direction:ltr;text-align:right}}
 h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
 .desc{{font-size:34px;line-height:1.6;margin-top:22px;max-width:900px;opacity:.95}}
-/* laptop */
+/* browser window */
+.win{{position:absolute;left:60px;right:60px;bottom:150px;height:660px;border-radius:22px;overflow:hidden;background:#fff;display:flex;flex-direction:column;box-shadow:0 40px 90px rgba(0,0,40,.5);border:1px solid rgba(255,255,255,.35)}}
+.win img.shot{{width:100%;flex:1;min-height:0;object-fit:cover;object-position:top}}
 .laptop{{position:absolute;left:50%;transform:translateX(-50%);bottom:150px;width:960px}}
 .lid{{background:#0b0f1a;border-radius:28px 28px 0 0;padding:22px 22px 30px;box-shadow:0 40px 80px rgba(0,0,30,.45);border:2px solid #2b3245}}
 .cam{{width:10px;height:10px;border-radius:50%;background:#2b3245;margin:-12px auto 10px}}
@@ -63,17 +74,17 @@ h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
 .screen img.shot{{width:100%;height:100%;object-fit:cover;object-position:top}}
 .base{{height:26px;background:linear-gradient(#d7dbe6,#9aa1b3);border-radius:0 0 30px 30px;margin:0 -50px;position:relative}}
 .base:before{{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:160px;height:10px;background:#8a90a2;border-radius:0 0 12px 12px}}
-.bar{{height:44px;background:#eef0f5;display:flex;align-items:center;gap:8px;padding:0 16px;direction:ltr;flex:none}}
+.bar{{height:52px;background:#eef0f5;display:flex;align-items:center;gap:8px;padding:0 16px;direction:ltr;flex:none}}
 .dot{{width:12px;height:12px;border-radius:50%}}
-.urlbox{{flex:1;margin:0 60px;height:26px;border-radius:14px;background:#fff;color:#555;font-family:'Readex Pro';font-size:15px;display:flex;align-items:center;justify-content:center}}
-.page{{flex:1;padding:18px 22px;color:#111;background:#fafbff}}
+.urlbox{{flex:1;margin:0 60px;height:26px;border-radius:14px;background:#fff;color:#555;font-family:'Readex Pro';font-size:18px;display:flex;align-items:center;justify-content:center}}
+.page{{flex:1;padding:26px 30px;color:#111;background:#fafbff}}
 .ph{{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}}
-.ph b{{font-family:'Readex Pro';font-size:20px;color:{BLUE};direction:ltr}}
-.search{{width:330px;height:32px;border:1.5px solid #d5d9e5;border-radius:16px;font-size:15px;color:#888;display:flex;align-items:center;padding:0 14px}}
-.cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
-.card{{background:#fff;border:1px solid #e3e6ef;border-radius:12px;padding:12px 14px;height:180px;display:flex;flex-direction:column;justify-content:space-between}}
-.card small{{font-family:'Readex Pro';font-size:12px;color:#7a8099;direction:ltr;text-align:left}}
-.card p{{font-size:46px;line-height:1.35;color:#111}}
+.ph b{{font-family:'Readex Pro';font-size:26px;color:{BLUE};direction:ltr}}
+.search{{width:380px;height:40px;border:1.5px solid #d5d9e5;border-radius:20px;font-size:18px;color:#888;display:flex;align-items:center;padding:0 14px}}
+.cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}}
+.card{{background:#fff;border:1px solid #e3e6ef;border-radius:12px;padding:12px 14px;height:250px;display:flex;flex-direction:column;justify-content:space-between}}
+.card small{{font-family:'Readex Pro';font-size:15px;color:#7a8099;direction:ltr;text-align:left}}
+.card p{{font-size:52px;line-height:1.35;color:#111}}
 .url{{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);font-family:'Readex Pro';font-size:30px;direction:ltr;
  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:12px 34px;border-radius:40px;white-space:nowrap}}
 """
@@ -86,16 +97,17 @@ def shell(inner, idx, total):
 
 def screen(s):
     shot = find(f"screens/{s['n']}")
-    if shot: return f'<img class="shot" src="{shot}">'
+    SHOT = f'<img class="shot" src="{shot}">' if shot else None
+    bar = f"""<div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span>
+<span class="dot" style="background:#28c840"></span><div class="urlbox">{s['url']}</div></div>"""
+    if SHOT: return bar + SHOT
     cards = "".join(f'<div class="card"><small>{f}</small><p style="font-family:\'{f}\'">{SAMPLE}</p></div>' for f in s["fonts"])
-    return f"""<div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span>
-<span class="dot" style="background:#28c840"></span><div class="urlbox">{s['url']}</div></div>
-<div class="page"><div class="ph"><b>{s['name']}</b><div class="search">ابحث عن خط...</div></div><div class="cards">{cards}</div></div>"""
+    return bar + f"""<div class="page"><div class="ph"><b>{s['name']}</b><div class="search">ابحث عن خط...</div></div><div class="cards">{cards}</div></div>"""
 
 def site_slide(s, i, t):
     return shell(f"""<div class="big">{s['n']}</div>
 <div class="head"><span class="tag">{s['tag']}</span><h1>{s['name']}</h1><div class="desc">{s['desc']}</div></div>
-<div class="laptop"><div class="lid"><div class="cam"></div><div class="screen">{screen(s)}</div></div><div class="base"></div></div>
+<div class="win">{screen(s)}</div>
 <div class="url">{s['url']}</div>""", i, t)
 
 def cover(t):
@@ -104,12 +116,12 @@ def cover(t):
 .c{{position:absolute;top:230px;right:72px;left:72px}}
 .c .k{{font-size:40px;font-weight:700;opacity:.85}}
 .c h1{{font-family:'Tajawal';font-weight:800;font-size:122px;line-height:1.2;direction:rtl;text-align:right;margin-top:10px}}
-.c ul{{list-style:none;margin-top:56px;display:grid;gap:20px}}
-.c li{{font-family:'Readex Pro';font-size:40px;display:flex;gap:24px;align-items:center;direction:ltr;justify-content:flex-end}}
+.c ul{{list-style:none;margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px;direction:rtl}}
+.c li{{font-family:'Readex Pro';font-size:36px;display:flex;gap:18px;align-items:center;direction:ltr;justify-content:flex-end}}
 .c li span{{font-size:26px;background:#fff;color:{BLUE};border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-weight:700}}
 .save{{position:absolute;bottom:70px;right:72px;font-size:34px;font-weight:700;display:flex;gap:14px;align-items:center}}
 .swipe{{position:absolute;bottom:70px;left:72px;font-size:30px;opacity:.85}}
-</style><div class="c"><div class="k">٥ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
+</style><div class="c"><div class="k">٨ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
 <div class="save">🔖 احفظ البوست لشغلك الجاي</div><div class="swipe">اسحب ←</div>""", 1, t)
 
 def outro(t):
