@@ -5,22 +5,22 @@ HERE = pathlib.Path(__file__).parent
 BLUE, DARK = "#1538dc", "#0e289f"
 
 SITES = [
- dict(n="01", acc="#1ff79a", ink="#06331f", lay="bottom", name="Alfont", url="alfont.com", tag="مجاني",
+ dict(n="01", acc="#ffffff", ink="#1538dc", lay="bottom", name="Alfont", url="alfont.com", tag="مجاني",
       desc="آلاف الخطوط العربية، تكتب النص اللي تبيه وتشوف معاينته بكل الخطوط قبل التحميل.", fonts=[]),
- dict(n="02", acc="#e0458f", ink="#fff", lay="top", name="Arbfonts", url="arbfonts.com", tag="مجاني",
+ dict(n="02", acc="#ffffff", ink="#1538dc", lay="top", name="Arbfonts", url="arbfonts.com", tag="مجاني",
       desc="عرب فونتس، من أكبر مواقع الخطوط العربية، فيه أكثر من 12 ألف خط مقسّمة: رقعة، ثلث، ديواني وكوفي.", fonts=[]),
- dict(n="03", acc="#ffffff", ink="#111", lay="bottom", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
+ dict(n="03", acc="#ffffff", ink="#1538dc", lay="bottom", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
       desc="موقع خطوط عالمي فيه قسم كامل للخطوط العربية. انتبه لرخصة كل خط قبل الاستخدام التجاري.", fonts=[]),
- dict(n="04", acc="#ff4b55", ink="#fff", lay="bottom", name="29LT", url="29lt.com", tag="احترافي",
+ dict(n="04", acc="#ffffff", ink="#1538dc", lay="bottom", name="29LT", url="29lt.com", tag="احترافي",
       desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية ومعها خط لاتيني متناسق.", fonts=[]),
- dict(n="05", acc="#ff3b2f", ink="#fff", lay="top", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
+ dict(n="05", acc="#ffffff", ink="#1538dc", lay="top", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
       desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.", fonts=[]),
- dict(n="06", acc="#7fb2ff", ink="#08245c", lay="bottom", name="MyFonts", url="myfonts.com", tag="مدفوع",
+ dict(n="06", acc="#ffffff", ink="#1538dc", lay="bottom", name="MyFonts", url="myfonts.com", tag="مدفوع",
       desc="من أكبر أسواق الخطوط بالعالم، فيه أكثر من 400 ألف خط منها خطوط عربية احترافية.", fonts=[]),
 ]
 SAMPLE = "تصميم مميز"
 
-ALL_FONTS = ["Tajawal","Readex Pro"]
+ALL_FONTS = ["Tajawal","Readex Pro","Reem Kufi","Amiri","Aref Ruqaa","Lalezar","El Messiri","Marhey"]
 gf = "https://fonts.googleapis.com/css2?" + "&".join(
     "family="+f.replace(" ","+")+(":wght@400;700;800" if f in ("Tajawal",) else "") for f in ALL_FONTS) + "&display=block"
 
@@ -81,7 +81,7 @@ h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
 def shell(inner, idx, total):
     logo = f'<img class="logo" src="{LOGO}">' if LOGO else '<div></div>'
     return f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
-<link href="{gf}" rel="stylesheet"><style>{CSS}{LAYOUT_CSS}</style></head><body><div class="grid"></div>
+<link href="{gf}" rel="stylesheet"><style>{CSS}{LAYOUT_CSS}</style></head><body>
 <div class="top">{logo}<div class="count">{idx} / {total}</div></div>{inner}</body></html>"""
 
 def screen(s):
@@ -106,7 +106,7 @@ LAYOUT_CSS = f"""
 .L-tilt .area{{top:520px;bottom:160px;left:110px;right:110px}}
 .L-tilt .win{{transform:rotate(-3deg)}}
 .L-tilt .ghost{{position:absolute;inset:30px 10px;border-radius:22px;transform:rotate(4deg);opacity:.25}}
-.area:before{{content:"";position:absolute;inset:10% 15%;filter:blur(90px);opacity:.55;background:var(--acc);border-radius:50%;z-index:-1}}
+.area:before{{content:"";position:absolute;inset:10% 15%;filter:blur(90px);opacity:.6;background:#4f7dff;border-radius:50%;z-index:-1}}
 .area{{isolation:isolate}}
 .tag{{background:var(--acc)!important;color:var(--ink)!important}}
 h1:after{{content:"";display:block;width:120px;height:10px;border-radius:6px;background:var(--acc);margin:22px 0 0 auto}}
@@ -122,18 +122,30 @@ def site_slide(s, i, t):
 <div class="url">{s['url']}</div></div>""", i, t)
 
 def cover(t):
-    names = "".join(f'<li><span>{s["n"]}</span>{s["name"]}</li>' for s in SITES)
+    glyphs = [("ض","Reem Kufi",560,"top:60px;left:-60px",".1","none"),
+              ("ع","Aref Ruqaa",470,"bottom:-120px;right:-40px","0","2px rgba(255,255,255,.22)"),
+              ("خ","Amiri",360,"bottom:40px;left:30px",".09","none"),
+              ("ك","Lalezar",300,"top:120px;right:20px","0","2px rgba(255,255,255,.18)")]
+    gl = "".join(f'<div class="g" style="font-family:\'{f}\';font-size:{z}px;{pos};color:rgba(255,255,255,{op});-webkit-text-stroke:{st}">{c}</div>' for c,f,z,pos,op,st in glyphs)
+    chips = [("أبجد","Amiri","top:250px;left:110px","-8deg"),("أبجد","Reem Kufi","top:300px;right:90px","7deg"),
+             ("أبجد","Aref Ruqaa","bottom:250px;left:150px","6deg"),("أبجد","Lalezar","bottom:200px;right:130px","-6deg")]
+    ch = "".join(f'<div class="chip" style="{pos};transform:rotate({r})"><b style="font-family:\'{f}\'">{w}</b><small>{f}</small></div>' for w,f,pos,r in chips)
     return shell(f"""<style>
-.c{{position:absolute;top:230px;right:72px;left:72px}}
-.c .k{{font-size:40px;font-weight:700;opacity:.85}}
-.c h1{{font-family:'Tajawal';font-weight:800;font-size:122px;line-height:1.2;direction:rtl;text-align:right;margin-top:10px}}
-.c ul{{list-style:none;margin-top:50px;display:grid;gap:22px;direction:rtl}}
-.c li{{font-family:'Readex Pro';font-size:36px;display:flex;gap:18px;align-items:center;direction:ltr;justify-content:flex-end}}
-.c li span{{font-size:26px;background:#fff;color:{BLUE};border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-weight:700}}
-.save{{position:absolute;bottom:70px;right:72px;font-size:34px;font-weight:700;display:flex;gap:14px;align-items:center}}
-.swipe{{position:absolute;bottom:70px;left:72px;font-size:30px;opacity:.85}}
-</style><div class="c"><div class="k">٦ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
-<div class="save">🔖 احفظ البوست لشغلك الجاي</div><div class="swipe">اسحب ←</div>""", 1, t)
+.g{{position:absolute;line-height:1}}
+.orb{{position:absolute;border-radius:50%;filter:blur(110px)}}
+.chip{{position:absolute;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:26px;padding:18px 28px 14px;
+ display:flex;flex-direction:column;align-items:center;gap:4px;backdrop-filter:blur(6px);box-shadow:0 20px 50px rgba(0,0,40,.25)}}
+.chip b{{font-size:58px;font-weight:400;line-height:1.3}}
+.chip small{{font-family:'Readex Pro';font-size:18px;opacity:.75;direction:ltr}}
+.c{{position:absolute;top:50%;left:72px;right:72px;transform:translateY(-50%);text-align:center}}
+.c h1{{font-family:'Tajawal';font-weight:800;font-size:112px;line-height:1.25;direction:rtl;text-align:center;text-shadow:0 10px 40px rgba(0,0,50,.35)}}
+.c h1 em{{font-style:normal;position:relative;display:inline-block}}
+.c h1 em:after{{content:"";position:absolute;left:4%;right:4%;bottom:6px;height:22px;background:rgba(255,255,255,.22);border-radius:12px;z-index:-1}}
+</style>
+<div style="position:absolute;inset:0;overflow:hidden"><div class="orb" style="width:520px;height:520px;background:#3f6bff;top:-120px;right:-100px;opacity:.7"></div>
+<div class="orb" style="width:460px;height:460px;background:#0a1f8f;bottom:-120px;left:-80px;opacity:.8"></div></div>
+<div style="position:absolute;inset:0;overflow:hidden">{gl}</div>{ch}
+<div class="c"><h1>أفضل مواقع<br>لتحميل الخطوط<br>العربية</h1></div>""", 1, t)
 
 def outro(t):
     return shell(f"""<style>
@@ -151,7 +163,7 @@ out = HERE/"output"; out.mkdir(exist_ok=True)
 for i, h in enumerate(slides, 1): (out/f"slide-{i:02}.html").write_text(h, encoding="utf-8")
 
 js = """
-const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1080,height:1350},deviceScaleFactor:1});
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1080,height:1350},deviceScaleFactor:2});
 for(const f of process.argv.slice(2)){await p.goto('file://'+f,{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(400);
 await p.screenshot({path:f.replace('.html','.png')});}await b.close();})();"""
 (out/"_r.js").write_text(js)
