@@ -5,34 +5,20 @@ HERE = pathlib.Path(__file__).parent
 BLUE, DARK = "#1538dc", "#0e289f"
 
 SITES = [
- dict(n="01", name="Google Fonts", url="fonts.google.com", tag="مجاني",
-      desc="مكتبة ضخمة من خطوط جوجل، فيها فلتر للخطوط العربية تقدر تجربها وتحملها وتستخدمها تجارياً.",
-      fonts=["Cairo","Tajawal","Almarai","Amiri","Reem Kufi","El Messiri"]),
- dict(n="02", name="Arabic Fonts", url="arabicfonts.net", tag="مجاني",
-      desc="موقع متخصص بالخطوط العربية، مقسّم حسب النوع: كوفي، نسخ، ديواني ورقعة.",
-      fonts=["Lalezar","Changa","Aref Ruqaa","Mada","Harmattan","Marhey"]),
- dict(n="03", name="Alfont", url="alfont.com", tag="مجاني",
-      desc="آلاف الخطوط العربية مع معاينة مباشرة للنص اللي تكتبه قبل التحميل.",
-      fonts=["Rakkas","Lemonada","Katibeh","Mirza","Jomhuria","Vibes"]),
- dict(n="04", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
-      desc="موقع خطوط عالمي فيه قسم كامل للخطوط العربية. انتبه لرخصة كل خط قبل الاستخدام التجاري.",
-      fonts=["Kufam","Blaka","Qahiri","Messiri","Ruwudu","Reem Kufi Ink"]),
- dict(n="05", name="29LT", url="29lt.com", tag="احترافي",
-      desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية للهويات والعلامات التجارية.",
-      fonts=["Readex Pro","Alexandria","Noto Kufi Arabic","Rubik","IBM Plex Sans Arabic","Baloo Bhaijaan 2"]),
- dict(n="06", name="TPTQ Arabic", url="tptq-arabic.com", tag="احترافي",
-      desc="مسبك متخصص بالخط العربي، من أعماله خط Greta Arabic، ومن عملائه الجزيرة واللوفر أبوظبي.",
-      fonts=["Noto Sans Arabic","Vazirmatn","Zain","Playpen Sans Arabic","Handjet","Beiruti"]),
- dict(n="07", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
-      desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.",
-      fonts=["Noto Naskh Arabic","Scheherazade New","Amiri","Lateef","Gulzar","Kufam"]),
- dict(n="08", name="MyFonts", url="myfonts.com", tag="مدفوع",
-      desc="سوق خطوط عالمي فيه قسم كبير للخطوط العربية من مصممين ومسابك مختلفة.",
-      fonts=["Almarai","Cairo Play","Badeen Display","Tajawal","Changa","El Messiri"]),
+ dict(n="01", name="Alfont", url="alfont.com", tag="مجاني",
+      desc="آلاف الخطوط العربية، تكتب النص اللي تبيه وتشوف معاينته بكل الخطوط قبل التحميل.", fonts=[]),
+ dict(n="02", name="29LT", url="29lt.com", tag="احترافي",
+      desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية ومعها خط لاتيني متناسق.", fonts=[]),
+ dict(n="03", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
+      desc="موقع خطوط عالمي فيه قسم كامل للخطوط العربية. انتبه لرخصة كل خط قبل الاستخدام التجاري.", fonts=[]),
+ dict(n="04", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
+      desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.", fonts=[]),
+ dict(n="05", name="MyFonts", url="myfonts.com", tag="مدفوع",
+      desc="من أكبر أسواق الخطوط بالعالم، فيه أكثر من 400 ألف خط منها خطوط عربية احترافية.", fonts=[]),
 ]
 SAMPLE = "تصميم مميز"
 
-ALL_FONTS = sorted({f for s in SITES for f in s["fonts"]} | {"Tajawal","Readex Pro"})
+ALL_FONTS = ["Tajawal","Readex Pro"]
 gf = "https://fonts.googleapis.com/css2?" + "&".join(
     "family="+f.replace(" ","+")+(":wght@400;700;800" if f in ("Tajawal",) else "") for f in ALL_FONTS) + "&display=block"
 
@@ -65,8 +51,9 @@ h1{{font-family:'Readex Pro';font-weight:700;font-size:92px;line-height:1.05;dir
 h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
 .desc{{font-size:34px;line-height:1.6;margin-top:22px;max-width:900px;opacity:.95}}
 /* browser window */
-.win{{position:absolute;left:60px;right:60px;bottom:150px;height:660px;border-radius:22px;overflow:hidden;background:#fff;display:flex;flex-direction:column;box-shadow:0 40px 90px rgba(0,0,40,.5);border:1px solid rgba(255,255,255,.35)}}
-.win img.shot{{width:100%;flex:1;min-height:0;object-fit:cover;object-position:top}}
+.area{{position:absolute;top:470px;bottom:140px;left:40px;right:40px;display:flex;align-items:center}}
+.win{{width:100%;max-height:100%;border-radius:22px;overflow:hidden;background:#fff;display:flex;flex-direction:column;box-shadow:0 40px 90px rgba(0,0,40,.5);border:1px solid rgba(255,255,255,.35)}}
+.win img.shot{{width:100%;display:block;min-height:0;object-fit:cover;object-position:top}}
 .laptop{{position:absolute;left:50%;transform:translateX(-50%);bottom:150px;width:960px}}
 .lid{{background:#0b0f1a;border-radius:28px 28px 0 0;padding:22px 22px 30px;box-shadow:0 40px 80px rgba(0,0,30,.45);border:2px solid #2b3245}}
 .cam{{width:10px;height:10px;border-radius:50%;background:#2b3245;margin:-12px auto 10px}}
@@ -107,7 +94,7 @@ def screen(s):
 def site_slide(s, i, t):
     return shell(f"""<div class="big">{s['n']}</div>
 <div class="head"><span class="tag">{s['tag']}</span><h1>{s['name']}</h1><div class="desc">{s['desc']}</div></div>
-<div class="win">{screen(s)}</div>
+<div class="area"><div class="win">{screen(s)}</div></div>
 <div class="url">{s['url']}</div>""", i, t)
 
 def cover(t):
@@ -116,12 +103,12 @@ def cover(t):
 .c{{position:absolute;top:230px;right:72px;left:72px}}
 .c .k{{font-size:40px;font-weight:700;opacity:.85}}
 .c h1{{font-family:'Tajawal';font-weight:800;font-size:122px;line-height:1.2;direction:rtl;text-align:right;margin-top:10px}}
-.c ul{{list-style:none;margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px;direction:rtl}}
+.c ul{{list-style:none;margin-top:50px;display:grid;gap:22px;direction:rtl}}
 .c li{{font-family:'Readex Pro';font-size:36px;display:flex;gap:18px;align-items:center;direction:ltr;justify-content:flex-end}}
 .c li span{{font-size:26px;background:#fff;color:{BLUE};border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-weight:700}}
 .save{{position:absolute;bottom:70px;right:72px;font-size:34px;font-weight:700;display:flex;gap:14px;align-items:center}}
 .swipe{{position:absolute;bottom:70px;left:72px;font-size:30px;opacity:.85}}
-</style><div class="c"><div class="k">٨ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
+</style><div class="c"><div class="k">٥ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
 <div class="save">🔖 احفظ البوست لشغلك الجاي</div><div class="swipe">اسحب ←</div>""", 1, t)
 
 def outro(t):
