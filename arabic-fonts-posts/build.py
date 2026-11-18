@@ -5,15 +5,15 @@ HERE = pathlib.Path(__file__).parent
 BLUE, DARK = "#1538dc", "#0e289f"
 
 SITES = [
- dict(n="01", name="Alfont", url="alfont.com", tag="مجاني",
+ dict(n="01", acc="#1ff79a", ink="#06331f", lay="bleed-l", name="Alfont", url="alfont.com", tag="مجاني",
       desc="آلاف الخطوط العربية، تكتب النص اللي تبيه وتشوف معاينته بكل الخطوط قبل التحميل.", fonts=[]),
- dict(n="02", name="29LT", url="29lt.com", tag="احترافي",
+ dict(n="02", acc="#ff4b55", ink="#fff", lay="top", name="29LT", url="29lt.com", tag="احترافي",
       desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية ومعها خط لاتيني متناسق.", fonts=[]),
- dict(n="03", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
+ dict(n="03", acc="#ffffff", ink="#111", lay="tilt", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
       desc="موقع خطوط عالمي فيه قسم كامل للخطوط العربية. انتبه لرخصة كل خط قبل الاستخدام التجاري.", fonts=[]),
- dict(n="04", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
+ dict(n="04", acc="#ff3b2f", ink="#fff", lay="bleed-r", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
       desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.", fonts=[]),
- dict(n="05", name="MyFonts", url="myfonts.com", tag="مدفوع",
+ dict(n="05", acc="#7fb2ff", ink="#08245c", lay="top", name="MyFonts", url="myfonts.com", tag="مدفوع",
       desc="من أكبر أسواق الخطوط بالعالم، فيه أكثر من 400 ألف خط منها خطوط عربية احترافية.", fonts=[]),
 ]
 SAMPLE = "تصميم مميز"
@@ -79,7 +79,7 @@ h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
 def shell(inner, idx, total):
     logo = f'<img class="logo" src="{LOGO}">' if LOGO else '<div class="logo-ph">شعارك هنا</div>'
     return f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
-<link href="{gf}" rel="stylesheet"><style>{CSS}</style></head><body><div class="grid"></div>
+<link href="{gf}" rel="stylesheet"><style>{CSS}{LAYOUT_CSS}</style></head><body><div class="grid"></div>
 <div class="top">{logo}<div class="count">{idx} / {total}</div></div>{inner}</body></html>"""
 
 def screen(s):
@@ -91,11 +91,32 @@ def screen(s):
     cards = "".join(f'<div class="card"><small>{f}</small><p style="font-family:\'{f}\'">{SAMPLE}</p></div>' for f in s["fonts"])
     return bar + f"""<div class="page"><div class="ph"><b>{s['name']}</b><div class="search">ابحث عن خط...</div></div><div class="cards">{cards}</div></div>"""
 
+LAYOUT_CSS = f"""
+.L-bleed-r .area{{top:500px;bottom:150px;left:80px;right:-140px}}
+.L-bleed-r .win{{border-radius:22px 0 0 22px}}
+.L-bleed-l .area{{top:500px;bottom:150px;left:-140px;right:80px}}
+.L-bleed-l .win{{border-radius:0 22px 22px 0}}
+.L-top .area{{top:150px;height:640px;left:60px;right:60px;align-items:flex-end}}
+.L-top .head{{top:auto;bottom:150px}}
+.L-top .big{{top:auto;bottom:250px;left:40px;font-size:300px;opacity:.7}}
+.L-top .url{{left:72px;transform:none}}
+.L-tilt .area{{top:520px;bottom:160px;left:110px;right:110px}}
+.L-tilt .win{{transform:rotate(-3deg)}}
+.L-tilt .ghost{{position:absolute;inset:30px 10px;border-radius:22px;transform:rotate(4deg);opacity:.25}}
+.area:before{{content:"";position:absolute;inset:10% 15%;filter:blur(90px);opacity:.55;background:var(--acc);border-radius:50%;z-index:-1}}
+.area{{isolation:isolate}}
+.tag{{background:var(--acc)!important;color:var(--ink)!important}}
+h1:after{{content:"";display:block;width:120px;height:10px;border-radius:6px;background:var(--acc);margin:22px 0 0 auto}}
+.url{{border-color:var(--acc)!important}}
+"""
+
 def site_slide(s, i, t):
-    return shell(f"""<div class="big">{s['n']}</div>
+    ghost = '<div class="ghost" style="background:var(--acc)"></div>' if s['lay']=="tilt" else ""
+    return shell(f"""<style>body{{--acc:{s["acc"]};--ink:{s["ink"]}}}</style><div class="L-{s['lay']}" style="position:absolute;inset:0;overflow:hidden">
+<div class="big">{s['n']}</div>
 <div class="head"><span class="tag">{s['tag']}</span><h1>{s['name']}</h1><div class="desc">{s['desc']}</div></div>
-<div class="area"><div class="win">{screen(s)}</div></div>
-<div class="url">{s['url']}</div>""", i, t)
+<div class="area">{ghost}<div class="win">{screen(s)}</div></div>
+<div class="url">{s['url']}</div></div>""", i, t)
 
 def cover(t):
     names = "".join(f'<li><span>{s["n"]}</span>{s["name"]}</li>' for s in SITES)
