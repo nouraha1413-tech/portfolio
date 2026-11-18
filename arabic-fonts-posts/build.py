@@ -5,17 +5,17 @@ HERE = pathlib.Path(__file__).parent
 BLUE, DARK = "#1538dc", "#0e289f"
 
 SITES = [
- dict(n="01", acc="#1ff79a", ink="#06331f", lay="bleed-l", name="Alfont", url="alfont.com", tag="مجاني",
+ dict(n="01", acc="#1ff79a", ink="#06331f", lay="bottom", name="Alfont", url="alfont.com", tag="مجاني",
       desc="آلاف الخطوط العربية، تكتب النص اللي تبيه وتشوف معاينته بكل الخطوط قبل التحميل.", fonts=[]),
  dict(n="02", acc="#e0458f", ink="#fff", lay="top", name="Arbfonts", url="arbfonts.com", tag="مجاني",
       desc="عرب فونتس، من أكبر مواقع الخطوط العربية، فيه أكثر من 12 ألف خط مقسّمة: رقعة، ثلث، ديواني وكوفي.", fonts=[]),
- dict(n="03", acc="#ffffff", ink="#111", lay="tilt", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
+ dict(n="03", acc="#ffffff", ink="#111", lay="bottom", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
       desc="موقع خطوط عالمي فيه قسم كامل للخطوط العربية. انتبه لرخصة كل خط قبل الاستخدام التجاري.", fonts=[]),
- dict(n="04", acc="#ff4b55", ink="#fff", lay="bleed-r", name="29LT", url="29lt.com", tag="احترافي",
+ dict(n="04", acc="#ff4b55", ink="#fff", lay="bottom", name="29LT", url="29lt.com", tag="احترافي",
       desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية ومعها خط لاتيني متناسق.", fonts=[]),
  dict(n="05", acc="#ff3b2f", ink="#fff", lay="top", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
       desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.", fonts=[]),
- dict(n="06", acc="#7fb2ff", ink="#08245c", lay="tilt", name="MyFonts", url="myfonts.com", tag="مدفوع",
+ dict(n="06", acc="#7fb2ff", ink="#08245c", lay="bottom", name="MyFonts", url="myfonts.com", tag="مدفوع",
       desc="من أكبر أسواق الخطوط بالعالم، فيه أكثر من 400 ألف خط منها خطوط عربية احترافية.", fonts=[]),
 ]
 SAMPLE = "تصميم مميز"
@@ -94,6 +94,7 @@ def screen(s):
     return bar + f"""<div class="page"><div class="ph"><b>{s['name']}</b><div class="search">ابحث عن خط...</div></div><div class="cards">{cards}</div></div>"""
 
 LAYOUT_CSS = f"""
+.L-bottom .area{{top:500px;bottom:150px;left:60px;right:60px}}
 .L-bleed-r .area{{top:500px;bottom:150px;left:80px;right:-140px}}
 .L-bleed-r .win{{border-radius:22px 0 0 22px}}
 .L-bleed-l .area{{top:500px;bottom:150px;left:-140px;right:80px}}
