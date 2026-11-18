@@ -95,15 +95,25 @@ def cover_a():   # حرف عملاق بالخلفية
 <div class="t"><div class="k">مصادر المصمم</div><h1>{TITLE}</h1></div>
 <div class="strip">""" + "".join(f'<span style="font-family:\'{f}\'">ع</span>' for f in ["Amiri","Reem Kufi","Aref Ruqaa","Lalezar","Marhey","Rakkas"]) + "</div>")
 
-def cover_b():   # كولاج شاشات المواقع
-    pos = [(-120,250,-12),(560,180,9),(-60,760,7),(600,820,-8),(-140,1300,-6),(540,1380,10)]
-    cards = "".join(f'<div style="position:absolute;left:{x}px;top:{y}px;width:660px;transform:rotate({r}deg)">{window(s)}</div>' for (x,y,r),s in zip(pos,SITES))
+def cover_b():   # كولاج شاشات المواقع — مموّه عشان ما يكشف المحتوى
+    pos = [(-140,230,-12),(560,170,9),(-80,760,7),(600,820,-8),(-160,1330,-6),(540,1400,10)]
+    def blank(s):  # نافذة بدون رابط
+        return f"""<div class="win"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span>
+<span class="dot" style="background:#28c840"></span><div class="urlbox"></div></div><img src="{img64('screens/'+s['n'])}"></div>"""
+    cards = "".join(f'<div class="card" style="left:{x}px;top:{y}px;transform:rotate({r}deg)">{blank(s)}</div>' for (x,y,r),s in zip(pos,SITES))
     return page("""
-.shade{position:absolute;inset:0;background:radial-gradient(60% 42% at 50% 50%,rgba(14,40,159,.97) 0%,rgba(14,40,159,.85) 55%,rgba(14,40,159,.35) 100%)}
-.t{position:absolute;top:50%;left:60px;right:60px;transform:translateY(-55%);text-align:center}
-.t h1{font-weight:800;font-size:124px;line-height:1.25;text-shadow:0 12px 40px rgba(0,0,50,.5)}
-.t .k{font-size:38px;font-weight:700;margin-top:34px;opacity:.9}
-""", f"""<div class="clip">{cards}<div class="shade"></div></div><div class="t"><h1>{TITLE}</h1><div class="k">٦ مواقع لازم تحفظها 🔖</div></div>""")
+.card{position:absolute;width:680px;filter:blur(9px) saturate(.7);opacity:.75}
+.tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,56,220,.55) 0%,rgba(14,40,159,.35) 40%,rgba(14,40,159,.35) 60%,rgba(10,30,130,.75) 100%)}
+.focus{position:absolute;inset:0;background:radial-gradient(70% 34% at 50% 48%,rgba(14,40,159,.96) 0%,rgba(14,40,159,.8) 50%,rgba(14,40,159,0) 100%)}
+.t{position:absolute;top:50%;left:60px;right:60px;transform:translateY(-52%);text-align:center}
+.t .k{display:inline-block;font-size:32px;font-weight:700;letter-spacing:1px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.6);padding:10px 30px;border-radius:40px}
+.t h1{font-weight:800;font-size:128px;line-height:1.22;margin-top:34px;text-shadow:0 14px 40px rgba(0,0,40,.45)}
+.t .line{width:140px;height:9px;border-radius:6px;background:#fff;margin:40px auto 30px}
+.t .sub{font-size:40px;font-weight:700;opacity:.95}
+.swipe{position:absolute;bottom:470px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;background:#fff;color:#1538dc;font-size:34px;font-weight:800;padding:18px 40px;border-radius:50px;box-shadow:0 20px 50px rgba(0,0,40,.35);white-space:nowrap}
+""", f"""<div class="clip">{cards}<div class="tint"></div><div class="focus"></div></div>
+<div class="t"><div class="k">مصادر المصمم</div><h1>{TITLE}</h1><div class="line"></div><div class="sub">٦ مواقع لازم تحفظها</div></div>
+<div class="swipe">اسحب وشوفها ←</div>""")
 
 def cover_c():   # سطور بخطوط مختلفة
     rows = "".join(f'<div class="row" style="font-family:\'{f}\';opacity:{.10 if i%2 else .2}">الخطوط العربية الخطوط العربية</div>' for i,f in enumerate(DECO_FONTS+DECO_FONTS[:3]))
@@ -115,7 +125,7 @@ def cover_c():   # سطور بخطوط مختلفة
 .card .k{display:inline-block;margin-top:34px;background:#1538dc;color:#fff;font-size:34px;font-weight:700;padding:12px 34px;border-radius:40px}
 """, f"""<div class="clip"><div class="rows">{rows}</div></div><div class="card"><h1>{TITLE}</h1><div class="k">مجانية واحترافية</div></div>""")
 
-slides = {"cover-a": cover_a(), "cover-b": cover_b(), "cover-c": cover_c()}
+slides = {"slide-01": cover_b()}
 for s in SITES: slides[f"slide-{int(s['n'])+1:02}"] = site_slide(s)
 slides[f"slide-{len(SITES)+2:02}"] = outro()
 
