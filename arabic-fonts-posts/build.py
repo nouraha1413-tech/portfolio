@@ -54,8 +54,12 @@ SITE_CSS = """
 .wrap{position:absolute;top:50%;transform:translateY(-50%);left:60px;right:60px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .tag{background:#fff;color:#1538dc;font-weight:800;font-size:34px;padding:8px 26px;border-radius:30px}
 .num{font-family:'Readex Pro';font-weight:600;font-size:30px;opacity:.7;margin-top:34px;letter-spacing:4px}
-h1{font-family:'Readex Pro';font-weight:700;font-size:112px;line-height:1.05;direction:ltr;margin-top:6px}
+h1{font-family:'Readex Pro';font-weight:700;font-size:112px;line-height:1.05;direction:ltr;margin-top:18px}
 .line{width:120px;height:9px;border-radius:6px;background:#fff;margin:26px 0 24px}
+.meta{display:flex;align-items:center;gap:22px;font-size:36px;font-weight:700;opacity:.9}
+.meta .mn{font-family:'Readex Pro';font-weight:600;letter-spacing:3px}
+.meta .sep{width:2px;height:34px;background:rgba(255,255,255,.6)}
+h1{margin-bottom:28px}
 .desc{font-size:40px;line-height:1.6;max-width:900px;opacity:.95}
 .shot{position:relative;width:100%;margin-top:56px}
 .shot:before{content:"";position:absolute;inset:10% 12%;background:#4f7dff;filter:blur(90px);opacity:.7;border-radius:50%;z-index:-1}
@@ -65,7 +69,7 @@ h1{font-family:'Readex Pro';font-weight:700;font-size:112px;line-height:1.05;dir
 def site_slide(s):
     return page(SITE_CSS, f"""<div class="clip"><div class="orb" style="width:600px;height:600px;background:#3f6bff;top:-200px;right:-200px;opacity:.6"></div>
 <div class="big">{s['n']}</div></div>
-<div class="wrap"><span class="tag">{s['tag']}</span><div class="num">{s['n']}</div><h1>{s['name']}</h1><div class="line"></div>
+<div class="wrap"><div class="meta"><span class="mn">{s['n']}</span><span class="sep"></span><span class="mt">{s['tag']}</span></div><h1>{s['name']}</h1>
 <div class="desc">{s['desc']}</div><div class="shot">{window(s)}</div><div class="url">{s['url']}</div></div>""")
 
 def outro():
