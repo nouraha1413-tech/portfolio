@@ -1,0 +1,138 @@
+# يولّد سلايدات البوست (1080x1350) كـ HTML ثم يحولها لصور PNG
+# ضع صور الشاشات في screens/01.png ... والشعار في logo.png ثم شغّل: python3 build.py
+import os, json, subprocess, base64, pathlib
+HERE = pathlib.Path(__file__).parent
+BLUE, DARK = "#1538dc", "#0e289f"
+
+SITES = [
+ dict(n="01", name="Google Fonts", ar="جوجل فونتس", url="fonts.google.com", tag="مجاني",
+      desc="مكتبة ضخمة من خطوط جوجل، فيها فلتر للخطوط العربية تقدر تجربها وتحملها وتستخدمها تجارياً.",
+      fonts=["Cairo","Tajawal","Almarai","Amiri","Reem Kufi","El Messiri"]),
+ dict(n="02", name="Arabic Fonts", ar="عربيك فونتس", url="arabicfonts.net", tag="مجاني",
+      desc="موقع متخصص بالخطوط العربية، مقسّم حسب النوع: كوفي، نسخ، ديواني ورقعة.",
+      fonts=["Lalezar","Changa","Aref Ruqaa","Mada","Harmattan","Marhey"]),
+ dict(n="03", name="Alfont", ar="الفونت", url="alfont.com", tag="مجاني",
+      desc="آلاف الخطوط العربية مع معاينة مباشرة للنص اللي تكتبه قبل التحميل.",
+      fonts=["Rakkas","Lemonada","Katibeh","Mirza","Jomhuria","Vibes"]),
+ dict(n="04", name="29LT", ar="٢٩ إل تي", url="29lt.com", tag="احترافي",
+      desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية للهويات والعلامات التجارية.",
+      fonts=["Readex Pro","Alexandria","Noto Kufi Arabic","Rubik","IBM Plex Sans Arabic","Baloo Bhaijaan 2"]),
+ dict(n="05", name="Adobe Fonts", ar="أدوبي فونتس", url="fonts.adobe.com", tag="مع الاشتراك",
+      desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.",
+      fonts=["Noto Naskh Arabic","Scheherazade New","Amiri","Lateef","Gulzar","Kufam"]),
+]
+SAMPLE = "تصميم مميز"
+
+ALL_FONTS = sorted({f for s in SITES for f in s["fonts"]} | {"Tajawal","Readex Pro"})
+gf = "https://fonts.googleapis.com/css2?" + "&".join(
+    "family="+f.replace(" ","+")+(":wght@400;700;800" if f in ("Tajawal",) else "") for f in ALL_FONTS) + "&display=block"
+
+def img64(p):
+    p = HERE/p
+    if not p.exists(): return None
+    ext = p.suffix[1:].replace("jpg","jpeg")
+    return f"data:image/{ext};base64,"+base64.b64encode(p.read_bytes()).decode()
+
+def find(base):
+    for e in ("png","jpg","jpeg","webp"):
+        if (HERE/f"{base}.{e}").exists(): return img64(f"{base}.{e}")
+LOGO = find("logo")
+
+CSS = f"""
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{width:1080px;height:1350px;overflow:hidden;font-family:'Tajawal',sans-serif;direction:rtl;color:#fff;
+ background:radial-gradient(120% 80% at 80% 0%,#2a52ff 0%,{BLUE} 40%,{DARK} 100%);position:relative}}
+.grid{{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+ background-size:60px 60px;mask-image:linear-gradient(to bottom,#000 0%,transparent 75%)}}
+.top{{position:absolute;top:56px;left:72px;right:72px;display:flex;justify-content:space-between;align-items:center}}
+.logo{{height:84px;max-width:260px;object-fit:contain}}
+.logo-ph{{height:84px;padding:0 26px;border:2px dashed rgba(255,255,255,.5);border-radius:18px;display:flex;align-items:center;font-size:26px;opacity:.8}}
+.count{{font-family:'Readex Pro';font-size:26px;padding:10px 24px;border-radius:40px;background:rgba(255,255,255,.14);direction:ltr}}
+.big{{position:absolute;font-family:'Readex Pro';font-weight:700;font-size:420px;line-height:1;left:40px;top:120px;
+ color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.14);direction:ltr}}
+.head{{position:absolute;top:200px;right:72px;left:72px}}
+.tag{{display:inline-block;background:#fff;color:{BLUE};font-weight:800;font-size:26px;padding:8px 22px;border-radius:30px;margin-bottom:22px}}
+h1{{font-family:'Readex Pro';font-weight:700;font-size:92px;line-height:1.05;direction:ltr;text-align:right}}
+h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
+.desc{{font-size:34px;line-height:1.6;margin-top:22px;max-width:900px;opacity:.95}}
+/* laptop */
+.laptop{{position:absolute;left:50%;transform:translateX(-50%);bottom:150px;width:960px}}
+.lid{{background:#0b0f1a;border-radius:28px 28px 0 0;padding:22px 22px 30px;box-shadow:0 40px 80px rgba(0,0,30,.45);border:2px solid #2b3245}}
+.cam{{width:10px;height:10px;border-radius:50%;background:#2b3245;margin:-12px auto 10px}}
+.screen{{height:520px;border-radius:6px;overflow:hidden;background:#fff;display:flex;flex-direction:column}}
+.screen img.shot{{width:100%;height:100%;object-fit:cover;object-position:top}}
+.base{{height:26px;background:linear-gradient(#d7dbe6,#9aa1b3);border-radius:0 0 30px 30px;margin:0 -50px;position:relative}}
+.base:before{{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:160px;height:10px;background:#8a90a2;border-radius:0 0 12px 12px}}
+.bar{{height:44px;background:#eef0f5;display:flex;align-items:center;gap:8px;padding:0 16px;direction:ltr;flex:none}}
+.dot{{width:12px;height:12px;border-radius:50%}}
+.urlbox{{flex:1;margin:0 60px;height:26px;border-radius:14px;background:#fff;color:#555;font-family:'Readex Pro';font-size:15px;display:flex;align-items:center;justify-content:center}}
+.page{{flex:1;padding:18px 22px;color:#111;background:#fafbff}}
+.ph{{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}}
+.ph b{{font-family:'Readex Pro';font-size:20px;color:{BLUE};direction:ltr}}
+.search{{width:330px;height:32px;border:1.5px solid #d5d9e5;border-radius:16px;font-size:15px;color:#888;display:flex;align-items:center;padding:0 14px}}
+.cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
+.card{{background:#fff;border:1px solid #e3e6ef;border-radius:12px;padding:12px 14px;height:180px;display:flex;flex-direction:column;justify-content:space-between}}
+.card small{{font-family:'Readex Pro';font-size:12px;color:#7a8099;direction:ltr;text-align:left}}
+.card p{{font-size:46px;line-height:1.35;color:#111}}
+.url{{position:absolute;bottom:58px;left:50%;transform:translateX(-50%);font-family:'Readex Pro';font-size:30px;direction:ltr;
+ background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:12px 34px;border-radius:40px;white-space:nowrap}}
+"""
+
+def shell(inner, idx, total):
+    logo = f'<img class="logo" src="{LOGO}">' if LOGO else '<div class="logo-ph">شعارك هنا</div>'
+    return f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link href="{gf}" rel="stylesheet"><style>{CSS}</style></head><body><div class="grid"></div>
+<div class="top">{logo}<div class="count">{idx} / {total}</div></div>{inner}</body></html>"""
+
+def screen(s):
+    shot = find(f"screens/{s['n']}")
+    if shot: return f'<img class="shot" src="{shot}">'
+    cards = "".join(f'<div class="card"><small>{f}</small><p style="font-family:\'{f}\'">{SAMPLE}</p></div>' for f in s["fonts"])
+    return f"""<div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span>
+<span class="dot" style="background:#28c840"></span><div class="urlbox">{s['url']}</div></div>
+<div class="page"><div class="ph"><b>{s['name']}</b><div class="search">ابحث عن خط...</div></div><div class="cards">{cards}</div></div>"""
+
+def site_slide(s, i, t):
+    return shell(f"""<div class="big">{s['n']}</div>
+<div class="head"><span class="tag">{s['tag']}</span><h1>{s['name']}</h1><div class="desc">{s['desc']}</div></div>
+<div class="laptop"><div class="lid"><div class="cam"></div><div class="screen">{screen(s)}</div></div><div class="base"></div></div>
+<div class="url">{s['url']}</div>""", i, t)
+
+def cover(t):
+    names = "".join(f'<li><span>{s["n"]}</span>{s["name"]}</li>' for s in SITES)
+    return shell(f"""<style>
+.c{{position:absolute;top:230px;right:72px;left:72px}}
+.c .k{{font-size:40px;font-weight:700;opacity:.85}}
+.c h1{{font-family:'Tajawal';font-weight:800;font-size:122px;line-height:1.2;direction:rtl;text-align:right;margin-top:10px}}
+.c ul{{list-style:none;margin-top:56px;display:grid;gap:20px}}
+.c li{{font-family:'Readex Pro';font-size:40px;display:flex;gap:24px;align-items:center;direction:ltr;justify-content:flex-end}}
+.c li span{{font-size:26px;background:#fff;color:{BLUE};border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-weight:700}}
+.save{{position:absolute;bottom:70px;right:72px;font-size:34px;font-weight:700;display:flex;gap:14px;align-items:center}}
+.swipe{{position:absolute;bottom:70px;left:72px;font-size:30px;opacity:.85}}
+</style><div class="c"><div class="k">٥ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
+<div class="save">🔖 احفظ البوست لشغلك الجاي</div><div class="swipe">اسحب ←</div>""", 1, t)
+
+def outro(t):
+    return shell(f"""<style>
+.o{{position:absolute;top:50%;left:72px;right:72px;transform:translateY(-50%);text-align:center}}
+.o h1{{font-family:'Tajawal';font-weight:800;font-size:110px;direction:rtl;text-align:center;line-height:1.2}}
+.o p{{font-size:40px;margin-top:30px;opacity:.9;line-height:1.6}}
+.acts{{display:flex;justify-content:center;gap:24px;margin-top:70px}}
+.acts div{{background:#fff;color:{BLUE};font-weight:800;font-size:34px;padding:22px 40px;border-radius:24px}}
+</style><div class="o"><h1>أي موقع<br>تستخدمه أنت؟</h1><p>شاركنا في التعليقات 👇<br>وتابع للمزيد من مصادر التصميم</p>
+<div class="acts"><div>🔖 احفظ</div><div>↗ شارك</div><div>＋ تابع</div></div></div>""", t, t)
+
+total = len(SITES)+2
+slides = [cover(total)] + [site_slide(s, i+2, total) for i, s in enumerate(SITES)] + [outro(total)]
+out = HERE/"output"; out.mkdir(exist_ok=True)
+for i, h in enumerate(slides, 1): (out/f"slide-{i:02}.html").write_text(h, encoding="utf-8")
+
+js = """
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1080,height:1350},deviceScaleFactor:1});
+for(const f of process.argv.slice(2)){await p.goto('file://'+f,{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(400);
+await p.screenshot({path:f.replace('.html','.png')});}await b.close();})();"""
+(out/"_r.js").write_text(js)
+subprocess.run(["node", str(out/"_r.js")] + [str((out/f"slide-{i:02}.html").resolve()) for i in range(1, total+1)], check=True)
+for f in out.glob("*.html"): f.unlink()
+(out/"_r.js").unlink()
+print("done", total)
