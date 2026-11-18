@@ -7,13 +7,15 @@ BLUE, DARK = "#1538dc", "#0e289f"
 SITES = [
  dict(n="01", acc="#1ff79a", ink="#06331f", lay="bleed-l", name="Alfont", url="alfont.com", tag="مجاني",
       desc="آلاف الخطوط العربية، تكتب النص اللي تبيه وتشوف معاينته بكل الخطوط قبل التحميل.", fonts=[]),
- dict(n="02", acc="#ff4b55", ink="#fff", lay="top", name="29LT", url="29lt.com", tag="احترافي",
-      desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية ومعها خط لاتيني متناسق.", fonts=[]),
+ dict(n="02", acc="#e0458f", ink="#fff", lay="top", name="Arbfonts", url="arbfonts.com", tag="مجاني",
+      desc="عرب فونتس، من أكبر مواقع الخطوط العربية، فيه أكثر من 12 ألف خط مقسّمة: رقعة، ثلث، ديواني وكوفي.", fonts=[]),
  dict(n="03", acc="#ffffff", ink="#111", lay="tilt", name="1001 Free Fonts", url="1001freefonts.com", tag="مجاني",
       desc="موقع خطوط عالمي فيه قسم كامل للخطوط العربية. انتبه لرخصة كل خط قبل الاستخدام التجاري.", fonts=[]),
- dict(n="04", acc="#ff3b2f", ink="#fff", lay="bleed-r", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
+ dict(n="04", acc="#ff4b55", ink="#fff", lay="bleed-r", name="29LT", url="29lt.com", tag="احترافي",
+      desc="مسبك خطوط عربي احترافي، خطوطه مصممة بعناية ومعها خط لاتيني متناسق.", fonts=[]),
+ dict(n="05", acc="#ff3b2f", ink="#fff", lay="top", name="Adobe Fonts", url="fonts.adobe.com", tag="مع الاشتراك",
       desc="متاح مع اشتراك أدوبي، يتفعّل الخط مباشرة داخل فوتوشوب وإليستريتور.", fonts=[]),
- dict(n="05", acc="#7fb2ff", ink="#08245c", lay="top", name="MyFonts", url="myfonts.com", tag="مدفوع",
+ dict(n="06", acc="#7fb2ff", ink="#08245c", lay="tilt", name="MyFonts", url="myfonts.com", tag="مدفوع",
       desc="من أكبر أسواق الخطوط بالعالم، فيه أكثر من 400 ألف خط منها خطوط عربية احترافية.", fonts=[]),
 ]
 SAMPLE = "تصميم مميز"
@@ -77,7 +79,7 @@ h2{{font-weight:700;font-size:40px;opacity:.85;margin-top:8px}}
 """
 
 def shell(inner, idx, total):
-    logo = f'<img class="logo" src="{LOGO}">' if LOGO else '<div class="logo-ph">شعارك هنا</div>'
+    logo = f'<img class="logo" src="{LOGO}">' if LOGO else '<div></div>'
     return f"""<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <link href="{gf}" rel="stylesheet"><style>{CSS}{LAYOUT_CSS}</style></head><body><div class="grid"></div>
 <div class="top">{logo}<div class="count">{idx} / {total}</div></div>{inner}</body></html>"""
@@ -129,7 +131,7 @@ def cover(t):
 .c li span{{font-size:26px;background:#fff;color:{BLUE};border-radius:50%;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-weight:700}}
 .save{{position:absolute;bottom:70px;right:72px;font-size:34px;font-weight:700;display:flex;gap:14px;align-items:center}}
 .swipe{{position:absolute;bottom:70px;left:72px;font-size:30px;opacity:.85}}
-</style><div class="c"><div class="k">٥ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
+</style><div class="c"><div class="k">٦ مواقع لازم تعرفها</div><h1>أفضل مواقع<br>الخطوط العربية</h1><ul>{names}</ul></div>
 <div class="save">🔖 احفظ البوست لشغلك الجاي</div><div class="swipe">اسحب ←</div>""", 1, t)
 
 def outro(t):
